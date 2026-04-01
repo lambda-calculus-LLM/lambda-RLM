@@ -1,18 +1,119 @@
-# $\lambda$-RLM
-Code for **The $\mathbf{Y}$-Combinator for LLMs:Solving Long-Context Rot with $\lambda$-Calculus**: a framework for long-context reasoning that replaces free-form recursive code generation with a typed functional runtime grounded in $\lambda$-calculus.
+<h1 align="center">λ-RLM — The Y-Combinator for LLMs</h1>
 
 <p align="center">
-  <img src="intro.png" alt="Lambda-RLM results figure" width="900" />
+  <a href="https://arxiv.org/abs/2603.20105">
+    <img src="https://img.shields.io/badge/arXiv-2603.20105-b31b1b.svg" alt="arXiv">
+  </a>
+  <a href="LICENSE">
+    <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License MIT">
+  </a>
+  <a href="#quickstart">
+    <img src="https://img.shields.io/badge/Python-3.11%2B-blue.svg" alt="Python 3.11+">
+  </a>
+  <a href="https://github.com/lambda-calculus-LLM/lambda-RLM/stargazers">
+    <img src="https://img.shields.io/github/stars/lambda-calculus-LLM/lambda-RLM?style=social" alt="GitHub stars">
+  </a>
 </p>
 
-Direct LLM inference and standard RLM inference are constrained by context windows and can rely on hard-to-predict decomposition strategies. $\lambda$-RLM addresses this by:
+<p align="center">
+  <b>Typed recursive long-context reasoning for LLMs.</b>
+</p>
 
-- **Planning decomposition ahead of execution** with a deterministic recursive strategy
-- **Expressing inference through functional structure**, with model calls at local steps and symbolic operators for composition
-- **Breaking long inputs into manageable chunks** that fit within the model context window
-- **Applying the model only to bounded leaf subproblems and combining intermediate results** through structured operators such as `SPLIT`, `MAP`, `FILTER`, `REDUCE`, `CONCAT` and `CROSS`.
+<p align="center">
+  λ-RLM replaces free-form recursive code generation with a typed functional runtime grounded in λ-calculus.
+</p>
 
----
+<p align="center">
+  <a href="https://github.com/lambda-calculus-LLM/lambda-RLM">
+    <img src="https://img.shields.io/badge/Star%20this%20repo-yellow?style=for-the-badge" alt="Star this repo">
+  </a>
+  <a href="https://arxiv.org/abs/2603.20105">
+    <img src="https://img.shields.io/badge/Read%20the%20paper-b31b1b?style=for-the-badge" alt="Read the paper">
+  </a>
+</p>
+
+<br>
+
+## Why use λ-RLMs?
+
+λ-RLM is a framework for long-context reasoning that replaces **free-form recursive code generation** with a **typed functional runtime** grounded in **λ-calculus**.  
+Instead of letting the model write arbitrary recursive control logic during execution, λ-RLM executes a compact library of **pre-verified combinators** and uses neural inference only on **bounded leaf subproblems**.
+
+> More reliable recursive reasoning. More predictable compute. Stronger formal structure.
+
+Across weak, medium, and strong model families, λ-RLM improves accuracy over standard RLM while substantially reducing latency.
+
+<p align="center">
+  <img src="intro.png" alt="Lambda-RLM overview and results" width="900"/>
+</p>
+
+## Why this repo matters?
+
+Standard direct LLM inference is limited by the context window.  
+Standard Recursive Language Models (RLMs) go further, but often rely on **open-ended REPL-based recursive code generation**, which is powerful yet difficult to verify, predict, and analyse.
+
+λ-RLM takes a different route:
+
+- **deterministic recursive decomposition**
+- **typed symbolic control flow**
+- **bounded model calls at leaf subproblems**
+- **structured composition through functional operators**
+- **formal guarantees absent from standard RLMs**
+
+## Highlights
+
+- **29 / 36** wins over standard RLM across model-task comparisons
+- **Up to +21.9** average accuracy points across model tiers
+- **Up to 4.1×** lower latency
+- Formal guarantees including:
+  - **termination**
+  - **closed-form cost bounds**
+  - **controlled accuracy scaling with recursion depth**
+  - an **optimal partition rule** under a simple cost model
+
+## Intuition
+
+The key idea is simple:
+
+- break a long reasoning problem into smaller pieces
+- solve only the bounded leaf subproblems with the LLM
+- combine intermediate results using a fixed library of symbolic operators
+
+This turns recursive reasoning from an unconstrained agentic loop into a **structured functional program with explicit control flow**.
+
+Instead of relying on arbitrary generated recursion, λ-RLM uses operators such as:
+
+- `SPLIT`
+- `MAP`
+- `FILTER`
+- `REDUCE`
+- `CONCAT`
+- `CROSS`
+
+These operators let the system process long inputs compositionally while keeping individual model calls local and manageable.
+
+
+## What makes λ-RLM different?
+
+### Standard RLM
+Standard RLM-style systems often:
+- generate recursive code on the fly
+- use a REPL-style execution loop
+- make decomposition strategies harder to predict
+- offer less formal structure for analysis
+
+### λ-RLM
+λ-RLM instead:
+- plans decomposition ahead of execution
+- uses a typed functional runtime
+- executes deterministic recursive structure
+- restricts neural inference to bounded leaves
+- composes results symbolically
+
+In short:
+
+> **standard RLMs use generated control code**  
+> **λ-RLM uses typed functional control**
 
 ## Installation and Setup
 
